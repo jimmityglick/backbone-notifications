@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backbone Widgets</title>
+    <link rel="stylesheet" href="src/backbone.notifications.css" />
+    <style type="text/css">
+        body {
+            margin: 0 0 120px;
+            font-family: helvetica, sans-serif;
+            font-size: 25px;
+        }
+
+        input {
+            font-size: 17px;
+            padding: 3px;
+            margin: 0;
+            outline: none;
+        }
+
+        header {
+            margin: 0;
+            border-bottom: 1px solid #e4e4e4;
+            padding: 50px 50px 20px;
+        }
+
+        header h1 {
+            color: #ff813d;
+        }
+
+        header h2 {
+            color: #565656;
+            font-size: 29px;
+            font-weight: normal;
+        }
+
+        header h1, header h2, section {
+            width: 890px;
+            margin: auto;
+        }
+
+        section {
+            overflow: hidden;
+        }
+
+        section h3 {
+            color: #424242;
+            margin: 30px 0 10px;
+        }
+
+        section h4 {
+            font-size: 20px;
+            margin: 0;
+            color: #424242;
+            padding: 0;
+        }
+
+        section p {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #525252;
+        }
+
+        section form input {
+            width: 350px;
+            font-size: 20px;
+            padding: 10px;
+        }
+
+        #example, #selected {
+            float: left;
+            margin-right: 55px;
+        }
+
+        #selected {
+            display: none;
+            margin: 0;
+        }
+
+        #selected p {
+            margin: 0;
+            width: 430px;
+            padding: 10px;
+            background-color: #fafafa;
+            color: #404040;
+        }
+
+        p em {
+            background-color: #f6f2f4;
+            font-style: normal;
+            padding: 1px 4px;
+            border-radius: 1px;
+        }
+
+        pre {
+            font-size: 16px;
+            background-color: #fcfcfc;
+            padding: 10px;
+            color: #666666;
+            border: 1px solid #e8e8e8;
+            line-height: 29px;
+        }
+
+        table {
+            width: 100%;
+            font-size: 18px;
+            border: 1px solid #e8e8e8;
+        }
+
+        table th {
+            padding: 10px;
+            color: #515151;
+            font-weight: bold;
+        }
+
+        table td {
+            padding: 10px;
+            color: #515151;
+        }
+
+        p a {
+            color: #4b4b4b;
+            text-decoration: none;
+        }
+
+        #contribution p {
+            padding: 20px;
+            border: 1px solid #e9e9e9;
+        }
+
+        ul.examples {
+            margin: 10px 5px;
+            padding: 0;
+            height: 30px;
+        }
+
+        ul.examples li {
+            float: left;
+            list-style: none;
+            margin-right: 9px;
+        }
+
+        ul.examples li a {
+            text-decoration: none;
+            font-size: 15px;
+            float: left;
+            background-color: #f0f0f0;
+            color: gray;
+            display: inline-block;
+            padding: 3px 10px;
+            border: 1px solid #cecece;
+            box-shadow: 0 0 4px #e1e1e1;
+        }
+
+        ul.examples li a:hover {
+            background-color: #ff782e;
+            color: #fcfcfc;
+            border-color: #dd6828;
+            box-shadow: 0 0 10px #e17f40;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Backbone.Notifications</h1>
+    <h2>Global notification mechanism for Backbone</h2>
+</header>
+
+<section>
+    <h3>Flash Notifications</h3>
+    <p>There are three type of the flash notifications; flash, success and error.</p>
+    <ul class="examples">
+        <li><a id="flash-example" href="#flash-example">Flash Notification</a></li>
+        <li><a id="success-example" href="#success-example">Success Notification</a></li>
+        <li><a id="error-example" href="#error-example">Error Notification</a></li>
+    </ul>
+    <pre>
+notifications.trigger("flash", "hello, i'm a flash notification.");
+notifications.trigger("success", "registration completed successful.");
+notifications.trigger("error", "oppss, error during initialization.");</pre>
+    <h3>Loading Notification</h3>
+    <p>You can use this notification type for inform the user while loading something.</p>
+    <ul class="examples">
+        <li><a id="start-loader" href="#start-loader">Start loader</a></li>
+        <li><a id="finish-loader" href="#finish-loader">Finish loader</a></li>
+    </ul>
+    <pre>
+notifications.trigger("start:loader", "Loading, please wait...");
+notifications.trigger("finish:loader");</pre>
+    <h3>Progress Bar</h3>
+    <p>Also there is an other notification type to show progress bar for your long running operations.</p>
+    <ul class="examples">
+        <li><a id="start-progress" href="#start-progress">Start progress</a></li>
+        <li><a class="update-progress" href="#" data-progress="40">Update to 40%</a></li>
+        <li><a class="update-progress" href="#" data-progress="80">Update to 80%</a></li>
+        <li><a id="finish-progress" href="#finish-progress">Finish progress</a></li>
+    </ul>
+<pre>
+notifications.trigger("start:progress", "Loading, please wait...");
+notifications.trigger("update:progress", 50);
+notifications.trigger("finish:progress");</pre>
+</section>
+
+<section>
+    <h3>Configuration</h3>
+    <p>First step is the definition of notification object. You can use built-in
+        Backbone objects or you create an object that extends with Backbone.Events.</p>
+    <pre>
+var notifications = {};
+_.extend(notifications, Backbone.Events);</pre>
+    <p>The second step is the configuration of Notifier view. Notifier view returns an unattached
+    DOM element. You can attach this element to the body element.</p>
+<pre>
+$("body").append(new Notifier({
+    model: notifications, // your notification object
+    wait: 2000 // the duration of notifications as milliseconds
+}).render(););
+</pre>
+    <p>That's all. Now you can trigger your notification object.</p>
+</section>
+
+
+<section id="contribution">
+    <h3>Contribution</h3>
+    <p><a href="https://github.com/fatiherikli/backbone-notifications">https://github.com/fatiherikli/backbone-notifications</a></p>
+</section>
+
+<section id="contribution">
+    <h3>Other Backbone Plugins</h3>
+    <p><a href="https://github.com/fatiherikli/backbone-autocomplete">https://github.com/fatiherikli/backbone-autocomplete</a></p>
+    <p><a href="https://github.com/fatiherikli/backbone-editinplace">https://github.com/fatiherikli/backbone-editinplace</a></p>
+    <p><a href="https://github.com/fatiherikli/backbone-sortable">https://github.com/fatiherikli/backbone-sortable</a></p>
+</section>
+
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="//underscorejs.org/underscore-min.js"></script>
+<script type="text/javascript" src="//backbonejs.org/backbone-min.js"></script>
+<script type="text/javascript" src="src/backbone.notifications.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        var notifications = {};
+        _.extend(notifications, Backbone.Events);
+
+        new Notifier({
+            model: notifications
+        }).render().$el.appendTo("body");
+
+        $("#flash-example").click(function () {
+            notifications.trigger("flash", "Hello, i'm a flash notification.");
+            return false;
+        });
+
+        $("#success-example").click(function () {
+            notifications.trigger("success", "Registration completed successful.");
+            return false;
+        });
+
+        $("#error-example").click(function () {
+            notifications.trigger("error", "Something's wrong with the world today.");
+            _.delay(notifications.trigger.bind(notifications,
+                    "error", "I don't know what it is.", 1800), 1000);
+            return false;
+        });
+
+        $("#start-loader").click(function () {
+            notifications.trigger("start:loader", "Loading, please wait...");
+            return false;
+        });
+
+        $("#finish-loader").click(function () {
+            notifications.trigger("finish:loader");
+            return false;
+        });
+
+        $("#start-progress").click(function () {
+            notifications.trigger("start:progress", "Loading, please wait...");
+            notifications.trigger("update:progress", 20);
+            return false;
+        });
+
+        $(".update-progress").click(function () {
+            notifications.trigger("update:progress", $(this).data("progress"));
+            return false;
+        });
+
+        $("#finish-progress").click(function () {
+            notifications.trigger("finish:progress");
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

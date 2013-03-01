@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Backbone Widgets</title>
+    <title>Backbone Notifications</title>
     <link rel="stylesheet" href="src/backbone.notifications.css" />
     <style type="text/css">
         body {
-            margin: 0 0 120px;
+            margin: 0;
             font-family: helvetica, sans-serif;
             font-size: 25px;
         }
@@ -23,6 +23,12 @@
             padding: 50px 50px 20px;
         }
 
+        footer {
+            margin: 40px 0;
+            border-top: 1px solid #e4e4e4;
+            padding: 50px 50px 20px;
+        }
+
         header h1 {
             color: #ff813d;
         }
@@ -33,7 +39,7 @@
             font-weight: normal;
         }
 
-        header h1, header h2, section {
+        header h1, header h2, section, footer p {
             width: 890px;
             margin: auto;
         }
@@ -251,6 +257,15 @@ $("body").append(new Notifier({
         <a href="https://github.com/fatiherikli/backbone-sortable">https://github.com/fatiherikli/backbone-sortable</a>
     </p>
 </section>
+
+<footer>
+    <p>
+
+        <a href="https://twitter.com/fthrkl" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @fthrkl</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="fthrkl" data-size="large">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </p>
+</footer>
 
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>

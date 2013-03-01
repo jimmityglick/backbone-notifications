@@ -3,178 +3,7 @@
 <head>
     <title>Backbone Notifications</title>
     <link rel="stylesheet" href="src/backbone.notifications.css" />
-    <style type="text/css">
-        body {
-            margin: 0;
-            font-family: helvetica, sans-serif;
-            font-size: 25px;
-        }
-
-        input {
-            font-size: 17px;
-            padding: 3px;
-            margin: 0;
-            outline: none;
-        }
-
-        header {
-            margin: 0;
-            border-bottom: 1px solid #e4e4e4;
-            padding: 50px 50px 20px;
-        }
-
-        footer {
-            margin: 40px 0;
-            border-top: 1px solid #e4e4e4;
-            padding: 50px 50px 20px;
-        }
-
-        header h1 {
-            color: #ff813d;
-        }
-
-        header h2 {
-            color: #565656;
-            font-size: 29px;
-            font-weight: normal;
-        }
-
-        header h1, header h2, section, footer p {
-            width: 890px;
-            margin: auto;
-        }
-
-        section {
-            overflow: hidden;
-        }
-
-        section h3 {
-            color: #424242;
-            margin: 30px 0 10px;
-        }
-
-        section h4 {
-            font-size: 20px;
-            margin: 0;
-            color: #424242;
-            padding: 0;
-        }
-
-        section p {
-            margin: 5px 0;
-            font-size: 18px;
-            color: #525252;
-        }
-
-        section form input {
-            width: 350px;
-            font-size: 20px;
-            padding: 10px;
-        }
-
-        #example, #selected {
-            float: left;
-            margin-right: 55px;
-        }
-
-        #selected {
-            display: none;
-            margin: 0;
-        }
-
-        #selected p {
-            margin: 0;
-            width: 430px;
-            padding: 10px;
-            background-color: #fafafa;
-            color: #404040;
-        }
-
-        p em {
-            background-color: #f6f2f4;
-            font-style: normal;
-            padding: 1px 4px;
-            border-radius: 1px;
-        }
-
-        pre {
-            font-size: 16px;
-            background-color: #fcfcfc;
-            padding: 10px;
-            color: #666666;
-            border: 1px solid #e8e8e8;
-            line-height: 29px;
-        }
-
-        table {
-            width: 100%;
-            font-size: 18px;
-            border: 1px solid #e8e8e8;
-        }
-
-        table th {
-            padding: 10px;
-            color: #515151;
-            font-weight: bold;
-        }
-
-        table td {
-            padding: 10px;
-            color: #515151;
-        }
-
-        p a {
-            color: #a3a3a3;
-            text-decoration: none;
-        }
-
-        #contribution p {
-            padding: 20px;
-            border: 1px solid #e9e9e9;
-        }
-
-        #plugins p {
-            padding: 20px;
-            border: 1px solid #e9e9e9;
-        }
-
-            #plugins p a {
-                display: inline-block;
-                margin-top: 4px;
-            }
-
-        ul.examples {
-            margin: 10px 5px;
-            padding: 0;
-            height: 30px;
-        }
-
-        ul.examples li {
-            float: left;
-            list-style: none;
-            margin-right: 9px;
-        }
-
-        ul.examples li a {
-            text-decoration: none;
-            font-size: 15px;
-            float: left;
-            background-color: #f0f0f0;
-            color: gray;
-            display: inline-block;
-            padding: 3px 10px;
-            border: 1px solid #cecece;
-            box-shadow: 0 0 4px #e1e1e1;
-        }
-
-        ul.examples li a:hover {
-            background-color: #ff782e;
-            color: #fcfcfc;
-            border-color: #dd6828;
-            box-shadow: 0 0 10px #e17f40;
-        }
-
-    </style>
+    <link rel="stylesheet" href="src/demo.css" />
 </head>
 <body>
 
@@ -182,6 +11,10 @@
     <h1>Backbone.Notifications</h1>
     <h2>Global notification mechanism for Backbone</h2>
 </header>
+
+<section id="share">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-via="fthrkl" data-size="large">Tweet</a>
+</section>
 
 <section>
     <h3>Flash Notifications</h3>
@@ -237,37 +70,25 @@ $("body").append(new Notifier({
 </section>
 
 
-<section id="contribution">
-    <h3>Contribution</h3>
-    <p><a href="https://github.com/fatiherikli/backbone-notifications">https://github.com/fatiherikli/backbone-notifications</a></p>
-</section>
-
-<section id="plugins">
-    <h3>Other Backbone Plugins</h3>
-    <p>
-        An auto-complete widget built with Backbone.js <br />
-        <a href="https://github.com/fatiherikli/backbone-autocomplete">https://github.com/fatiherikli/backbone-autocomplete</a>
-    </p>
-    <p>
-        Edit-in-place functionality for backbone models <br />
-        <a href="https://github.com/fatiherikli/backbone-editinplace">https://github.com/fatiherikli/backbone-editinplace</a>
-    </p>
-    <p>
-        A sortable widget that uses HTML5 Drag and Drop API for your collections.
-        <a href="https://github.com/fatiherikli/backbone-sortable">https://github.com/fatiherikli/backbone-sortable</a>
-    </p>
-</section>
-
 <footer>
-    <p>
-
-        <a href="https://twitter.com/fthrkl" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @fthrkl</a>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="fthrkl" data-size="large">Tweet</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <p>I'm building nightly small Backbone plugins.
+    <iframe src="http://ghbtns.com/github-btn.html?user=fatiherikli&type=follow&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="190" height="40" id="follow"></iframe>
     </p>
+
+    <ul id="plugins">
+        <li>Global notification mechanism for Backbone.<br />
+            <a href="https://github.com/fatiherikli/backbone-notifications">https://github.com/fatiherikli/backbone-notifications</a></li>
+        <li>An auto-complete widget built with Backbone.js.<br />
+            <a href="https://github.com/fatiherikli/backbone-autocomplete">https://github.com/fatiherikli/backbone-autocomplete</a></li>
+        <li>Edit-in-place functionality for backbone models.<br />
+            <a href="https://github.com/fatiherikli/backbone-editinplace">https://github.com/fatiherikli/backbone-editinplace</a></li>
+        <li>A sortable widget that uses HTML5 Drag and Drop API for your collections.
+            <a href="https://github.com/fatiherikli/backbone-sortable">https://github.com/fatiherikli/backbone-sortable</a></li>
+    </ul>
+
 </footer>
 
-
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="//underscorejs.org/underscore-min.js"></script>
 <script type="text/javascript" src="//backbonejs.org/backbone-min.js"></script>

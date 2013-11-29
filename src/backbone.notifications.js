@@ -8,7 +8,7 @@ var Notification = Backbone.View.extend({
 
     render: function () {
         this.$el
-            .html(this.options.text)
+            .html(this.text)
             .addClass(this.type)
             .delay(this.wait)
             .slideUp("fast");
@@ -20,7 +20,7 @@ var Loader = Notification.extend({
     className: "notification loader",
     render: function () {
         this.$el
-            .html(this.options.text)
+            .html(this.text)
             .append($("<em>"));
             // we have to create an inline element, because
             // css3 animations doesn't work with pseudo
@@ -28,9 +28,10 @@ var Loader = Notification.extend({
         return this;
     },
     finish: function () {
+        var _this = this;
         this.$el.fadeOut("fast", function () {
-            this.$el.remove();
-        }.bind(this));
+            _this.$el.remove();
+        });
     }
 });
 
@@ -49,9 +50,10 @@ var Notifier = Backbone.View.extend({
 
     initialize: function (options) {
         _.extend(this, options);
-        this.model.on("flash", this.notify.bind(this, "flash"));
-        this.model.on("error", this.notify.bind(this, "error"));
-        this.model.on("success", this.notify.bind(this, "success"));
+        this.model.on("flash", _.bind(this.notify, this, "flash"));
+        this.model.on("error", _.bind(this.notify, this, "error"));
+        this.model.on("success", _.bind(this.notify, this, "success"));
+        this.model.on("start:loader", this.startLoader, this);
         this.model.on("start:loader", this.startLoader, this);
         this.model.on("finish:loader", this.finishLoader, this);
         this.model.on("start:progress", this.startProgressBar, this);
@@ -98,7 +100,8 @@ var Notifier = Backbone.View.extend({
     finishProgressBar: function () {
         if (!this.progressBar) { return; }
         this.progressBar.update(100);
-        _.delay(this.progressBar.finish.bind(this.progressBar), this.wait);
+        var _wrappedFinish = _.bind(this.progressBar.finish, this.progressBar);
+        _.delay(_wrappedFinish, this.wait);
         this.progressBar = null;
     }
 

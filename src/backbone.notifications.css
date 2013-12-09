@@ -14,7 +14,16 @@
         color: #747474;
         border-top: 1px solid #eeeeee;
         box-shadow: 0 0 10px #e8e8e8;
+    }
 
+    .notification.loader.selector{
+        top: 0;
+        left: 50%;
+        position: absolute;
+        margin-left: -100px;
+        width: 200px;
+        padding: 10px 7px 9px;
+        font-size: 10px;
     }
 
     .notification.success:before,
@@ -29,6 +38,11 @@
         height: 6px;
         border-radius: 50%;
     }
+
+        .notification.loader.selector em{
+            margin-left: 192px;
+            margin-top: -3px;
+        }
 
     .notification.success:before {
         background-color: #b0d26f;
@@ -53,7 +67,6 @@
         -webkit-animation-name: loading;
         -webkit-animation-iteration-count: infinite;
         -webkit-animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-
     }
 
     .notification.progress em {
@@ -82,8 +95,6 @@
     }
 
 @-webkit-keyframes loading {
-
     0% { background-color: white; }
     100% { background-color: orange; }
-
 }

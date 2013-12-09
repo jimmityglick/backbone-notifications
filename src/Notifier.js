@@ -1,52 +1,9 @@
-var Notification = Backbone.View.extend({
-    tagName: "div",
-    className: "notification",
-
-    initialize: function (options) {
-        _.extend(this, options);
-    },
-
-    render: function () {
-        this.$el
-            .html(this.text)
-            .addClass(this.type)
-            .delay(this.wait)
-            .slideUp("fast");
-        return this;
-    }
-});
-
-var Loader = Notification.extend({
-    className: "notification loader",
-    render: function () {
-        this.$el
-            .html(this.text)
-            .append($("<em>"));
-            // we have to create an inline element, because
-            // css3 animations doesn't work with pseudo
-            // elements on webkit based browsers.
-        return this;
-    },
-    finish: function () {
-        var _this = this;
-        this.$el.fadeOut("fast", function () {
-            _this.$el.remove();
-        });
-    }
-});
-
-var ProgressBar = Loader.extend({
-    className: "notification progress",
-    update: function (percent) {
-        this.$el.find("em").width(percent + "%");
-        return this;
-    }
-});
-
 var Notifier = Backbone.View.extend({
+
     className: "notifications",
 
     wait: 1000,
+    loaders: {},
 
     initialize: function (options) {
         _.extend(this, options);
@@ -71,17 +28,39 @@ var Notifier = Backbone.View.extend({
         return notification;
     },
 
-    startLoader: function (text) {
-        if (this.loader) { return; }
-        this.loader = new Loader({
-            text: text
-        }).render();
-        this.$el.append(this.loader.el);
+    startLoader: function (text, selector) {
+        if(!selector) { return this._startRootLoader(text); }
+        this._startSelectorLoader(text, selector);
     },
 
-    finishLoader: function () {
-        this.loader.finish();
-        this.loader = null;
+    _startRootLoader: function(text){
+        if (this.loaders.rootLoader) { return; }
+        this.loaders.rootLoader = new Loader({
+            text: text
+        }).render();
+        this.$el.append(this.loaders.rootLoader.el);
+    },
+
+    _startSelectorLoader: function(text, selector){
+        if(this.loaders[selector]) { return; }
+        this.loaders[selector] = new SelectorLoader({
+            text: text
+        }).render();
+        $(selector).css("position", "relative").append(this.loaders[selector].el);
+    },
+
+    finishLoader: function (selector) {
+        if(selector && this.loaders[selector] != null) {
+           $(selector).css("position", "");
+           return this._finishAndClearLoader(selector);
+        }
+        if(this.loaders["rootLoader"] == null) { return; }
+        this._finishAndClearLoader("rootLoader");
+    },
+
+    _finishAndClearLoader: function(loader) {
+        this.loaders[loader].finish();
+        this.loaders[loader] = null;
     },
 
     startProgressBar: function (text) {

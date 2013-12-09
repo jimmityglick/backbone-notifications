@@ -237,57 +237,57 @@ $("body").append(new Notifier({
 <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="//underscorejs.org/underscore-min.js"></script>
 <script type="text/javascript" src="//backbonejs.org/backbone-min.js"></script>
-<script type="text/javascript" src="src/backbone.notifications.js"></script>
+<script type="text/javascript" src="./src/backbone.notificaitons-min.js"></script>
 <script type="text/javascript">
     $(function () {
 
-        var notifications = {};
-        _.extend(notifications, Backbone.Events);
+        var eventBus = {};
+        _.extend(eventBus, Backbone.Events);
 
         new Notifier({
-            model: notifications
+            model: eventBus
         }).render().$el.appendTo("body");
 
         $("#flash-example").click(function () {
-            notifications.trigger("flash", "Hello, i'm a flash notification.");
+            eventBus.trigger("flash", "Hello, i'm a flash notification.");
             return false;
         });
 
         $("#success-example").click(function () {
-            notifications.trigger("success", "Registration completed successful.");
+            eventBus.trigger("success", "Registration completed successful.");
             return false;
         });
 
         $("#error-example").click(function () {
-            notifications.trigger("error", "Something's wrong with the world today.");
-            _.delay(notifications.trigger.bind(notifications,
+            eventBus.trigger("error", "Something's wrong with the world today.");
+            _.delay(eventBus.trigger.bind(eventBus,
                     "error", "I don't know what it is.", 1800), 1000);
             return false;
         });
 
         $("#start-loader").click(function () {
-            notifications.trigger("start:loader", "Loading, please wait...");
+            eventBus.trigger("start:loader", "Loading, please wait...");
             return false;
         });
 
         $("#finish-loader").click(function () {
-            notifications.trigger("finish:loader");
+            eventBus.trigger("finish:loader");
             return false;
         });
 
         $("#start-progress").click(function () {
-            notifications.trigger("start:progress", "Loading, please wait...");
-            notifications.trigger("update:progress", 20);
+            eventBus.trigger("start:progress", "Loading, please wait...");
+            eventBus.trigger("update:progress", 20);
             return false;
         });
 
         $(".update-progress").click(function () {
-            notifications.trigger("update:progress", $(this).data("progress"));
+            eventBus.trigger("update:progress", $(this).data("progress"));
             return false;
         });
 
         $("#finish-progress").click(function () {
-            notifications.trigger("finish:progress");
+            eventBus.trigger("finish:progress");
             return false;
         });
 

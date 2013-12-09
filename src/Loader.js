@@ -1,5 +1,7 @@
 var Loader = Notification.extend({
+
     className: "notification loader",
+
     render: function () {
         this.$el
             .html(this.text)
@@ -9,10 +11,12 @@ var Loader = Notification.extend({
             // elements on webkit based browsers.
         return this;
     },
+
     finish: function () {
         var _this = this;
         this.$el.fadeOut("fast", function () {
             _this.$el.remove();
         });
     }
+
 });

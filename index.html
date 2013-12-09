@@ -188,6 +188,16 @@ notifications.trigger("error", "oppss, error during initialization.");</pre>
     <pre>
 notifications.trigger("start:loader", "Loading, please wait...");
 notifications.trigger("finish:loader");</pre>
+    <h3>Sub View Loading Notification</h3>
+    <p>With this loader type, you can target specific content blocks of your view with a loading notificaiton.</p>
+    <ul class="examples">
+        <li><a id="start-targeted-loader" href="#start-targeted-loader">Start loader</a>
+        </li>
+        <li><a id="finish-targeted-loader" href="#finish-targeted-loader">Finish loader</a>
+        </li>
+    </ul>
+    <pre id="area">notifications.trigger("start:loader", "Loading content area...", "#area");
+notifications.trigger("finish:loader", "#area");</pre>
     <h3>Progress Bar</h3>
     <p>Also there is an other notification type to show progress bar for your long running operations.</p>
     <ul class="examples">
@@ -237,7 +247,11 @@ $("body").append(new Notifier({
 <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="//underscorejs.org/underscore-min.js"></script>
 <script type="text/javascript" src="//backbonejs.org/backbone-min.js"></script>
-<script type="text/javascript" src="./src/backbone.notificaitons-min.js"></script>
+<script type="text/javascript" src="./src/Notification.js"></script>
+<script type="text/javascript" src="./src/Notifier.js"></script>
+<script type="text/javascript" src="./src/Loader.js"></script>
+<script type="text/javascript" src="./src/SelectorLoader.js"></script>
+<script type="text/javascript" src="./src/ProgressBar.js"></script>
 <script type="text/javascript">
     $(function () {
 
@@ -272,6 +286,16 @@ $("body").append(new Notifier({
 
         $("#finish-loader").click(function () {
             eventBus.trigger("finish:loader");
+            return false;
+        });
+
+        $("#start-targeted-loader").click(function() {
+            eventBus.trigger("start:loader", "Loading content area...", '#area');
+            return false;
+        });
+
+        $("#finish-targeted-loader").click(function() {
+            eventBus.trigger("finish:loader", '#area');
             return false;
         });
 

@@ -1,7 +1,9 @@
 var Notifier = Backbone.View.extend({
+
     className: "notifications",
 
     wait: 1000,
+    loaders: {},
 
     initialize: function (options) {
         _.extend(this, options);
@@ -26,17 +28,39 @@ var Notifier = Backbone.View.extend({
         return notification;
     },
 
-    startLoader: function (text) {
-        if (this.loader) { return; }
-        this.loader = new Loader({
-            text: text
-        }).render();
-        this.$el.append(this.loader.el);
+    startLoader: function (text, selector) {
+        if(!selector) { return this._startRootLoader(text); }
+        this._startSelectorLoader(text, selector);
     },
 
-    finishLoader: function () {
-        this.loader.finish();
-        this.loader = null;
+    _startRootLoader: function(text){
+        if (this.loaders.rootLoader) { return; }
+        this.loaders.rootLoader = new Loader({
+            text: text
+        }).render();
+        this.$el.append(this.loaders.rootLoader.el);
+    },
+
+    _startSelectorLoader: function(text, selector){
+        if(this.loaders[selector]) { return; }
+        this.loaders[selector] = new SelectorLoader({
+            text: text
+        }).render();
+        $(selector).css("position", "relative").append(this.loaders[selector].el);
+    },
+
+    finishLoader: function (selector) {
+        if(selector && this.loaders[selector] != null) {
+           $(selector).css("position", "");
+           return this._finishAndClearLoader(selector);
+        }
+        if(this.loaders["rootLoader"] == null) { return; }
+        this._finishAndClearLoader("rootLoader");
+    },
+
+    _finishAndClearLoader: function(loader) {
+        this.loaders[loader].finish();
+        this.loaders[loader] = null;
     },
 
     startProgressBar: function (text) {

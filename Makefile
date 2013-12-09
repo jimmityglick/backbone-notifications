@@ -15,7 +15,7 @@ YUI_COMPRESSOR_FLAGS = --charset utf-8
 CSS_MINIFIED = $(CSS_FILES:.css=-min.css)
 JS_MINIFIED = $(JS_FILES:.js=-min.js)
 
-minify: removeConcat minify-css minify-js concat clean
+minify: removeConcat minify-css minify-js concat removeMinifiedJS
 minify-css: $(CSS_MINIFIED)
 minify-js: $(JS_MINIFIED)
 
@@ -34,6 +34,9 @@ concat:
 
 clean:
 	rm -f $(CSS_MINIFIED) $(JS_MINIFIED)
+
+removeMinifiedJS:
+	rm -f $(JS_MINIFIED)
 
 removeConcat:
 	rm -f src/backbone.notificaitons-min.js

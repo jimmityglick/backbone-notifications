@@ -7,11 +7,14 @@ var Notification = Backbone.View.extend({
     },
 
     render: function () {
+        var _this = this;
         this.$el
             .html(this.text)
             .addClass(this.type)
             .delay(this.wait)
-            .slideUp("fast");
+            .slideUp("fast", function(){
+                _this.remove();
+            });
         return this;
     }
-});
+})

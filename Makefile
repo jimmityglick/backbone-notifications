@@ -20,7 +20,7 @@ minify-css: $(CSS_MINIFIED)
 minify-js: $(JS_MINIFIED)
 
 concat:
-	cat src/Notification-min.js src/Notifier-min.js src/Loader-min.js src/SelectorLoader.js src/ProgressBar-min.js  > src/backbone.notificaitons-min.js
+	cat src/Notification-min.js src/Notifier-min.js src/Loader-min.js src/SelectorLoader.js src/ProgressBar-min.js  > src/backbone.notifications-min.js
 
 %-min.css: %.css
 	@echo '==> Minifying $<'

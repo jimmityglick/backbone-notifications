@@ -4,7 +4,7 @@ var Loader = Notification.extend({
 
     render: function () {
         this.$el
-            .html(this.text)
+            .html("<p>"+this.text+"</p>")
             .append($("<em>"));
             // we have to create an inline element, because
             // css3 animations doesn't work with pseudo

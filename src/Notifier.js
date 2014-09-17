@@ -73,9 +73,9 @@ var Notifier = Backbone.View.extend({
     this.$el.append(this.progressBar.el);
   },
 
-  updateProgressBar: function (percent) {
+  updateProgressBar: function (percent,text) {
     if (!this.progressBar) { return; }
-    this.progressBar.update(percent);
+    this.progressBar.update(percent,text);
   },
 
   finishProgressBar: function () {

@@ -28,60 +28,62 @@ var Notifier = Backbone.View.extend({
         return notification;
     },
 
-    startLoader: function (text, selector) {
-        if(!selector) { return this._startRootLoader(text); }
-        this._startSelectorLoader(text, selector);
-    },
+  startLoader: function (text, selector) {
+    if(!selector) { return this._startRootLoader(text); }
+    this._startSelectorLoader(text, selector);
+    return undefined;
+  },
 
-    _startRootLoader: function(text){
-        if (this.loaders.rootLoader) { return; }
-        this.loaders.rootLoader = new Loader({
-            text: text
-        }).render();
-        this.$el.append(this.loaders.rootLoader.el);
-    },
+  _startRootLoader: function(text){
+    if (this.loaders.rootLoader) { return; }
+    this.loaders.rootLoader = new Loader({
+      text: text
+    }).render();
+    this.$el.append(this.loaders.rootLoader.el);
+  },
 
-    _startSelectorLoader: function(text, selector){
-        if(this.loaders[selector]) { return; }
-        this.loaders[selector] = new SelectorLoader({
-            text: text
-        }).render();
-        $(selector).css("position", "relative").append(this.loaders[selector].el);
-    },
+  _startSelectorLoader: function(text, selector){
+    if(this.loaders[selector]) { return; }
+    this.loaders[selector] = new SelectorLoader({
+      text: text
+    }).render();
+    $(selector).css("position", "relative").append(this.loaders[selector].el);
+  },
 
-    finishLoader: function (selector) {
-        if(selector && this.loaders[selector] != null) {
-           $(selector).css("position", "");
-           return this._finishAndClearLoader(selector);
-        }
-        if(this.loaders["rootLoader"] == null) { return; }
-        this._finishAndClearLoader("rootLoader");
-    },
-
-    _finishAndClearLoader: function(loader) {
-        this.loaders[loader].finish();
-        this.loaders[loader] = null;
-    },
-
-    startProgressBar: function (text) {
-        if (this.progressBar) { return; }
-        this.progressBar = new ProgressBar({
-            text: text
-        }).render();
-        this.$el.append(this.progressBar.el);
-    },
-
-    updateProgressBar: function (percent) {
-        if (!this.progressBar) { return; }
-        this.progressBar.update(percent);
-    },
-
-    finishProgressBar: function () {
-        if (!this.progressBar) { return; }
-        this.progressBar.update(100);
-        var _wrappedFinish = _.bind(this.progressBar.finish, this.progressBar);
-        _.delay(_wrappedFinish, this.wait);
-        this.progressBar = null;
+  finishLoader: function (selector) {
+    if(selector && this.loaders[selector] != null) {
+      $(selector).css("position", "");
+      return this._finishAndClearLoader(selector);
     }
+    if(this.loaders["rootLoader"] == null) { return undefined; }
+    this._finishAndClearLoader("rootLoader");
+    return undefined;
+  },
+
+  _finishAndClearLoader: function(loader) {
+    this.loaders[loader].finish();
+    this.loaders[loader] = null;
+  },
+
+  startProgressBar: function (text) {
+    if (this.progressBar) { return; }
+    this.progressBar = new ProgressBar({
+      text: text
+    }).render();
+    this.$el.append(this.progressBar.el);
+  },
+
+  updateProgressBar: function (percent) {
+    if (!this.progressBar) { return; }
+    this.progressBar.update(percent);
+  },
+
+  finishProgressBar: function () {
+    if (!this.progressBar) { return; }
+    this.progressBar.update(100);
+    var _wrappedFinish = _.bind(this.progressBar.finish, this.progressBar);
+    _.delay(_wrappedFinish, this.wait);
+    this.progressBar = null;
+  }
 
 });
